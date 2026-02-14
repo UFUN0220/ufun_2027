@@ -12,6 +12,215 @@ authors: ['default']
 
 ---
 
+# dnn_assgn_8
+
+https://github.com/jeffheaton/app_deep_learning/blob/main/assignments/assignment_yourname_t81_558_class8.ipynb
+
+使用特征工程预测物品成本，需达到指定精度要求。
+
+使用两个CSV文件：训练文件：含已知成本与特征数据。提交文件：仅含特征数据，需预测成本
+
+特征包括：高度、宽度、深度、形状、质量。目标变量：成本。
+
+对原始特征进行工程处理：包括变换、编码和构造新特征，形状特征为分类变量需专门处理，使用训练数据建模，预测提交文件中的成本数据。
+
+```Python
+import pandas as pd
+import numpy as np
+from sklearn.ensemble import RandomForestRegressor
+
+df_train = pd.read_csv("https://data.heatonresearch.com/data/t81-558/datasets/shapes-train.csv")
+df_submit = pd.read_csv("https://data.heatonresearch.com/data/t81-558/datasets/shapes-test.csv")
+
+def engineer_features(df):
+    df_fe = df.copy()
+
+    df_fe['volume'] = df_fe['height'] * df_fe['width'] * df_fe['depth']
+    df_fe['surface_area'] = 2 * (df_fe['height'] * df_fe['width'] +
+                                df_fe['height'] * df_fe['depth'] +
+                                df_fe['width'] * df_fe['depth'])
+
+    df_fe['aspect_ratio_hw'] = df_fe['height'] / df_fe['width']
+    df_fe['aspect_ratio_hd'] = df_fe['height'] / df_fe['depth']
+    df_fe['aspect_ratio_wd'] = df_fe['width'] / df_fe['depth']
+
+    shape_dummies = pd.get_dummies(df_fe['shape'], prefix='shape')
+    df_fe = pd.concat([df_fe, shape_dummies], axis=1)
+
+    quality_map = {'low': 1, 'medium': 2, 'high': 3}
+    df_fe['quality_encoded'] = df_fe['quality'].map(quality_map)
+
+    df_fe['volume_quality'] = df_fe['volume'] * df_fe['quality_encoded']
+    df_fe['surface_quality'] = df_fe['surface_area'] * df_fe['quality_encoded']
+
+    return df_fe
+
+df_train_fe = engineer_features(df_train)
+df_submit_fe = engineer_features(df_submit)
+
+feature_columns = ['height', 'width', 'depth', 'volume', 'surface_area',
+                  'aspect_ratio_hw', 'aspect_ratio_hd', 'aspect_ratio_wd',
+                  'quality_encoded', 'volume_quality', 'surface_quality'] + \
+                 [col for col in df_train_fe.columns if col.startswith('shape_')]
+
+X_train = df_train_fe[feature_columns]
+y_train = df_train_fe['cost']
+X_submit = df_submit_fe[feature_columns]
+
+model = RandomForestRegressor(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_submit)
+
+submit_df = pd.DataFrame({
+    'cost': y_pred,
+    'id': df_submit['id']
+})
+
+submit_df = submit_df[['cost', 'id']]
+
+print("Submission dataframe info:")
+print(submit_df.info())
+print("\nFirst few rows:")
+print(submit_df.head())
+
+key = "..."
+file = ".../assignment_FangYou_t81_558_class8.ipynb"
+
+submit(source_file=file, data=[submit_df], key=key, no=8, course='t81-558')
+```
+
+---
+
+# dnn_assgn_7
+
+https://github.com/jeffheaton/app_deep_learning/blob/main/assignments/assignment_yourname_t81_558_class7.ipynb
+
+将任意图像转换为正方形画布，通过添加计算出的背景色实现。
+方形化方法
+
+- 横向图像：在上下添加背景条
+- 纵向图像：在左右添加背景条
+- 原图在正方形画布中居中显示
+  背景色计算
+  取原图所有像素RGB值的平均值，结果取整作为填充色。
+
+```Python
+%matplotlib inline
+
+import os
+import requests
+from io import BytesIO
+import numpy as np
+from PIL import Image
+from matplotlib.pyplot import imshow
+
+file = ".../assignment_FangYou_t81_558_class7.ipynb"
+key = "..."
+
+def load_image(url):
+    response = requests.get(url)
+    img = Image.open(BytesIO(response.content)).convert("RGB")
+    print(f"Loaded image from {url} with size: {img.size}")
+    return img
+
+def make_square(img: Image.Image) -> Image.Image:
+    width, height = img.size
+    new_size = max(width, height)
+    arr = np.array(img)
+    avg_color = tuple([int(x) for x in arr.mean(axis=(0,1))])
+    print(f"Original size: ({width},{height}), new size: ({new_size},{new_size}), average color: {avg_color}")
+    new_img = Image.new("RGB", (new_size, new_size), color=avg_color)
+    left = round((new_size - width) / 2)
+    top = round((new_size - height) / 2)
+    new_img.paste(img, (left, top))
+    print(f"Image pasted at position: ({left},{top})")
+    print(f"Corner pixel values: Top-left: {new_img.getpixel((0,0))}, Bottom-right: {new_img.getpixel((new_size-1,new_size-1))}")
+    return new_img
+
+url1 = "https://raw.githubusercontent.com/jeffheaton/t81_558_deep_learning/master/photos/hickory_home.jpg"
+url2 = "https://raw.githubusercontent.com/jeffheaton/t81_558_deep_learning/master/photos/landscape.jpg"
+
+img1 = load_image(url1)
+img2 = load_image(url2)
+
+submit_img1 = make_square(img1)
+submit_img2 = make_square(img2)
+
+print(f"Submit image 1 size: {submit_img1.size}")
+print(f"Submit image 2 size: {submit_img2.size}")
+
+imshow(submit_img1)
+imshow(submit_img2)
+
+submit(source_file=file, data=[submit_img1, submit_img2], key=key, no=7, course='t81-558')
+```
+
+---
+
+# dnn_assgn_6
+
+https://github.com/jeffheaton/app_deep_learning/blob/main/assignments/assignment_yourname_t81_558_class6.ipynb
+
+使用大型语言模型（LLM）从给定的100个英语句子中提取人名。
+
+每个句子对应一个ID，输出结果应为两列：ID 和提取出的 **人名**（单个词）。
+
+示例说明：
+
+- 输入句子："Sarah found an old photograph in the attic."
+- 输出结果：ID=1, name=Sarah
+
+**注意：** 需处理所有句子，并确保输出格式与示例一致（ID与提取的人名对应）。
+
+```Python
+import os
+import pandas as pd
+from langchain.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+
+key = "..."
+OPENAI_KEY = "..."
+
+df = pd.read_csv("https://data.heatonresearch.com/data/t81-558/sentences.csv")
+
+MODEL = "gpt-4o-mini"
+TEMPERATURE = 0
+
+llm = ChatOpenAI(
+    api_key=OPENAI_KEY,
+    model=MODEL,
+    temperature=TEMPERATURE,
+    n=1,
+    max_tokens=256
+)
+
+prompt = ChatPromptTemplate.from_template(
+    "Extract the NAME of the person from each of the following sentences. "
+    "Only return the names in order, one per line.\n\n{sentences}"
+)
+
+def extract_names_batch(sentences, batch_size=10):
+    results = []
+    for i in range(0, len(sentences), batch_size):
+        batch = sentences[i:i+batch_size]
+        text_block = "\n".join(f"{j+1}. {s}" for j, s in enumerate(batch))
+        chain = prompt | llm
+        response = chain.invoke({"sentences": text_block})
+        names = [line.strip() for line in response.content.split("\n") if line.strip()]
+        results.extend(names)
+    return results
+
+df["name"] = extract_names_batch(df["sentence"].tolist(), batch_size=10)
+df_submit = df[["id", "name"]]
+print(df_submit.head(10))
+
+file = ".../assignment_FangYou_t81_558_class6.ipynb"
+submit(source_file=file, data=[df_submit], key=key, course="t81-558", no=6)
+```
+
+---
+
 # dnn_assgn_5
 
 https://github.com/jeffheaton/app_deep_learning/blob/main/assignments/assignment_yourname_t81_558_class5.ipynb
