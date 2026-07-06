@@ -18,7 +18,7 @@ export function TagsList({ tags }: { tags: string[] }) {
 }
 
 export function Tag({ text, size = 'sm' }: { text: string; size?: 'sm' | 'md' }) {
-  let tagName = text.split(' ').join('-')
+  const tagName = text.split(' ').join('-')
   return (
     <Link
       href={`/tags/${slug(text)}`}

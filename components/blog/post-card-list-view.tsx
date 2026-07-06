@@ -16,7 +16,7 @@ export function PostCardListView({
   post: CoreContent<Blog>
   loading?: 'lazy' | 'eager'
 }) {
-  let { slug, date, title, summary, tags, images, readingTime } = post
+  const { slug, date, title, summary, tags, images, readingTime } = post
   return (
     <article>
       <div className="flex flex-col gap-2 space-y-3 md:flex-row md:gap-8">

@@ -2,8 +2,8 @@ import type { NextRequest } from 'next/server'
 import { fetchRepoData } from '~/utils/github'
 
 export async function GET(request: NextRequest) {
-  let { searchParams: params } = new URL(request.url)
-  let repo = params.get('repo')
+  const { searchParams: params } = new URL(request.url)
+  const repo = params.get('repo')
   if (!repo) {
     return Response.json(
       { message: 'Missing repo parameter' },
@@ -12,6 +12,6 @@ export async function GET(request: NextRequest) {
       }
     )
   }
-  let data = await fetchRepoData({ repo, includeLastCommit: true })
+  const data = await fetchRepoData({ repo, includeLastCommit: true })
   return Response.json(data)
 }

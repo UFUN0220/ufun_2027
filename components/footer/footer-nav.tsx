@@ -46,8 +46,8 @@ export function FooterNav() {
 }
 
 function FooterLink({ link }: { link: (typeof FOOTER_NAV_LINKS)[0] }) {
-  let { href, title } = link
-  let isExternal = href.startsWith('http')
+  const { href, title } = link
+  const isExternal = href.startsWith('http')
   return (
     <Link href={href}>
       <GrowingUnderline

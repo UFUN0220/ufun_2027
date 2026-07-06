@@ -1,4 +1,4 @@
-import { Mail, Github } from 'lucide-react'
+import { GitBranch, Mail } from 'lucide-react'
 import { SITE_METADATA } from '~/data/site-metadata'
 
 export function Social() {
@@ -9,7 +9,7 @@ export function Social() {
         <Mail strokeWidth={1.5} size={20} />
       </a>
       <a className="text-gray-700 dark:text-gray-200" href={SITE_METADATA.github}>
-        <Github strokeWidth={1.5} size={20} />
+        <GitBranch strokeWidth={1.5} size={20} />
       </a>
     </div>
   )

@@ -7,7 +7,7 @@ import { Twemoji } from '~/components/ui/twemoji'
 import type { GoodreadsBook } from '~/types/data'
 
 export function BookDetails({ book }: { book: GoodreadsBook }) {
-  let [tab, setTab] = useState<'summary' | 'review'>('summary')
+  const [tab, setTab] = useState<'summary' | 'review'>('summary')
   return (
     <div className="space-y-3">
       <div className="-ml-1 flex items-center gap-2">
@@ -41,7 +41,7 @@ export function BookDetails({ book }: { book: GoodreadsBook }) {
 }
 
 function TabTrigger(props: { active: boolean; onClick: () => void; label: string; emoji: string }) {
-  let { active, onClick, label, emoji } = props
+  const { active, onClick, label, emoji } = props
   return (
     <button
       onClick={onClick}
@@ -57,7 +57,7 @@ function TabTrigger(props: { active: boolean; onClick: () => void; label: string
 }
 
 function TabContent(props: { icon: React.FC<LucideProps>; content: string }) {
-  let { icon: Icon, content } = props
+  const { icon: Icon, content } = props
   return (
     <>
       <Icon

@@ -2,7 +2,7 @@
 
 import { Menu, MenuButton, MenuItems, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { Facebook, Link, Linkedin, Share2 } from 'lucide-react'
+import { Link, Network, Share2, Users } from 'lucide-react'
 import { Fragment, useState } from 'react'
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share'
 import { SITE_METADATA } from '~/data/site-metadata'
@@ -18,7 +18,7 @@ type SocialButtonsProps = {
 }
 
 export function SocialShare({ postUrl, filePath, title, className }: SocialButtonsProps) {
-  let [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   function handleCopyLink() {
     navigator.clipboard.writeText(postUrl)
@@ -84,14 +84,14 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
               title={title}
               className="flex items-center gap-2.5 !text-gray-600 hover:!text-gray-900 dark:!text-gray-400 dark:hover:!text-gray-100"
             >
-              <Linkedin strokeWidth={1.5} size={18} />
+              <Network strokeWidth={1.5} size={18} />
               <span className="">Share on LinkedIn</span>
             </LinkedinShareButton>
             <FacebookShareButton
               url={postUrl}
               className="flex items-center gap-2.5 !text-gray-600 hover:!text-gray-900 dark:!text-gray-400 dark:hover:!text-gray-100"
             >
-              <Facebook strokeWidth={1.5} size={18} />
+              <Users strokeWidth={1.5} size={18} />
               <span className="">Share on Facebook</span>
             </FacebookShareButton>
           </div>

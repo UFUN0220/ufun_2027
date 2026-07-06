@@ -14,6 +14,7 @@ import remarkGfm from 'remark-gfm'
 import { remarkAlert } from 'remark-github-blockquote-alert'
 import remarkMath from 'remark-math'
 import { SITE_METADATA } from './data/site-metadata'
+import type { MDXDocumentDate } from './types/data'
 import { allCoreContent } from './utils/contentlayer'
 import { sortPosts } from './utils/misc'
 import { remarkCodeTitles } from './utils/remark-code-titles'
@@ -57,7 +58,12 @@ let computedFields: ComputedFields = {
 /**
  * Count the occurrences of all tags across blog posts and write to json file
  */
-function createTagCount(documents) {
+type TaggableDocument = {
+  tags?: string[]
+  draft?: boolean
+}
+
+function createTagCount(documents: TaggableDocument[]) {
   let tagCount: Record<string, number> = {}
   documents.forEach((file) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
@@ -75,7 +81,7 @@ function createTagCount(documents) {
   console.log('🏷️. Tag list generated.')
 }
 
-function createSearchIndex(allBlogs) {
+function createSearchIndex(allBlogs: MDXDocumentDate[]) {
   let searchDocsPath = SITE_METADATA.search.kbarConfigs.searchDocumentsPath
   if (searchDocsPath) {
     writeFileSync(
@@ -183,6 +189,7 @@ export let Author = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'data',
+  disableImportAliasWarning: true,
   documentTypes: [Blog, Snippet, Author],
   mdx: {
     cwd: process.cwd(),

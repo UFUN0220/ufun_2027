@@ -1,16 +1,17 @@
 import type { Parent } from 'unist'
+import type { VFile } from 'vfile'
+import type { YAML } from 'mdast'
 import { visit } from 'unist-util-visit'
-import yaml from 'js-yaml'
+import * as yaml from 'js-yaml'
 
 /**
  * Extracts frontmatter from markdown file and adds it to the file's data object.
  *
  */
 export function remarkExtractFrontmatter() {
-  return (tree: Parent, file) => {
-    visit(tree, 'yaml', (node: Parent) => {
-      //@ts-ignore
-      file.data.frontmatter = yaml.load(node.value)
+  return (tree: Parent, file: VFile) => {
+    visit(tree, 'yaml', (node: YAML) => {
+      file.data.frontmatter = yaml.load(String(node.value))
     })
   }
 }

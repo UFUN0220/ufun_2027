@@ -2,7 +2,7 @@ import { useKBar } from 'kbar'
 import { Search } from 'lucide-react'
 
 export function KbarSearchTrigger() {
-  let { query } = useKBar()
+  const { query } = useKBar()
 
   return (
     <button

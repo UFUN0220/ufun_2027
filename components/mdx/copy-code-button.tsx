@@ -13,15 +13,15 @@ export function CopyCodeButton({
   className?: string
   parent: 'code-title' | 'code-block'
 }) {
-  let [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   function handleCopy(e: React.MouseEvent<HTMLButtonElement>) {
-    let button = e.currentTarget
+    const button = e.currentTarget
     let preTag: HTMLPreElement | null = null
     if (parent === 'code-block') {
       preTag = button.nextElementSibling as HTMLPreElement
     } else if (parent === 'code-title') {
-      let figure = button.parentElement?.nextElementSibling
+      const figure = button.parentElement?.nextElementSibling
       preTag = figure?.querySelector('pre') as HTMLPreElement
     }
     if (preTag) {

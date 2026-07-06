@@ -22,8 +22,8 @@ interface LayoutProps {
 }
 
 export function PostBanner({ content, children }: LayoutProps) {
-  let { slug, type, title, images, date, lastmod, readingTime, tags, filePath } = content
-  let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
+  const { slug, type, title, images, date, lastmod, readingTime, tags, filePath } = content
+  const postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
     <Container className="pt-4 lg:pt-12">
@@ -69,7 +69,7 @@ export function PostBanner({ content, children }: LayoutProps) {
 }
 
 function Credit({ image, className }: { image: string; className?: string }) {
-  let [, author, id] = image.split('__')
+  const [, author, id] = image.split('__')
   if (author && id) {
     return (
       <div className={clsx('text-right text-sm italic', className)}>

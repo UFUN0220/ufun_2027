@@ -6,7 +6,7 @@ type BlogMetaProps = {
   date: string
   lastmod?: string
   slug: string
-  type: any
+  type: string
   readingTime: ReturnType<typeof readingTime>
 }
 

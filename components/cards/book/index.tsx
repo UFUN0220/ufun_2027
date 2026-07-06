@@ -68,7 +68,7 @@ function GoodreadsLink({ url, className }: { url?: string | null; className?: st
 
 function getBookUrl(content: string) {
   try {
-    let url = content.match(/<a href="([^"]*)">/)?.[1]?.split('?')[0]
+    const url = content.match(/<a href="([^"]*)">/)?.[1]?.split('?')[0]
     return url
   } catch (error) {
     console.error('Error parsing book URL:', error)

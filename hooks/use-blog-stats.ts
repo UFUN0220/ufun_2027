@@ -4,7 +4,7 @@ import { fetcher } from '~/utils/misc'
 
 // 定义统计类型
 type SelectStats = {
-  type: any
+  type: string
   slug: string
   views: number
   loves: number
@@ -13,7 +13,7 @@ type SelectStats = {
   bullseyes: number
 }
 
-export function useBlogStats(type: any, slug: string) {
+export function useBlogStats(type: string, slug: string) {
   let { data, isLoading } = useSWR<SelectStats>(`/api/stats?slug=${slug}&type=${type}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,

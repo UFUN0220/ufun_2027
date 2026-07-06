@@ -8,8 +8,8 @@ import type { CommitState, GithubRepository } from '~/types/data'
 import { fetcher } from '~/utils/misc'
 
 export function LogoAndRepo() {
-  let siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
-  let { data: repo } = useSWR<GithubRepository>(`/api/github?repo=${siteRepo}`, fetcher)
+  const siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
+  const { data: repo } = useSWR<GithubRepository>(`/api/github?repo=${siteRepo}`, fetcher)
 
   return (
     <div className="flex items-center">

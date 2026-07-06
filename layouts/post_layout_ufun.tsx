@@ -11,8 +11,8 @@ import { GradientDivider } from '~/components/ui/gradient-divider'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { CoreContent } from '~/types/data'
 
-const editUrl = (path) => `${SITE_METADATA.siteRepo}/blob/main/data/${path}`
-const discussUrl = (path) =>
+const editUrl = (path: string) => `${SITE_METADATA.siteRepo}/blob/main/data/${path}`
+const discussUrl = (path: string) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(`${SITE_METADATA.siteUrl}/${path}`)}`
 
 interface LayoutProps {
@@ -23,8 +23,8 @@ interface LayoutProps {
   children: ReactNode
 }
 export function PostLayout({ content, next, prev, children }: LayoutProps) {
-  let { slug, images, lastmod, readingTime, date, filePath, title, tags, toc, type } = content
-  let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
+  const { slug, images, lastmod, readingTime, date, filePath, title, tags, toc, type } = content
+  const postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
     <Container className="pt-4 lg:pt-8">

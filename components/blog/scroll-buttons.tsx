@@ -5,7 +5,7 @@ import { ChevronsUp, MessageSquareText } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export function ScrollButtons() {
-  let [show, setShow] = useState(false)
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     function handleWindowScroll() {

@@ -27,7 +27,7 @@ function logASCIItext() {
 }
 
 export function Header() {
-  let pathname = usePathname()
+  const pathname = usePathname()
   useEffect(logASCIItext, [])
 
   return (
@@ -45,7 +45,7 @@ export function Header() {
           <Logo />
           <div className="gap-3 sm:flex">
             {HEADER_NAV_LINKS.map(({ title, href }) => {
-              let isActive = pathname.startsWith(href)
+              const isActive = pathname.startsWith(href)
               return (
                 <Link key={title} href={href} className="px-1 py-1 font-medium">
                   {/* <GrowingUnderline */}

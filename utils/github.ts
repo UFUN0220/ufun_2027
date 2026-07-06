@@ -1,5 +1,25 @@
 import { graphql, type GraphQlQueryResponseData } from '@octokit/graphql'
-import type { GithubRepository } from '~/types/data'
+import type { GithubRepository, GithubRepositoryCommit } from '~/types/data'
+
+type Edge<T> = {
+  node: T
+}
+
+type RawRepository = Omit<GithubRepository, 'languages' | 'repositoryTopics'> & {
+  defaultBranchRef?: {
+    target: {
+      history: {
+        edges: Edge<GithubRepositoryCommit>[]
+      }
+    }
+  }
+  languages: {
+    edges: Edge<{ color: string; name: string }>[]
+  }
+  repositoryTopics: {
+    edges: Edge<{ topic: { name: string } }>[]
+  }
+}
 
 const HISTORY_QUERY = `
   defaultBranchRef {
@@ -38,7 +58,7 @@ export async function fetchRepoData({
     return null
   }
   try {
-    let { repository }: GraphQlQueryResponseData = await graphql(
+    const { repository: rawRepository }: GraphQlQueryResponseData = await graphql(
       `
         query repository($owner: String!, $repo: String!) {
           repository(owner: $owner, name: $repo) {
@@ -78,20 +98,28 @@ export async function fetchRepoData({
         },
       }
     )
+    const repository = rawRepository as RawRepository
+    const lastCommit = includeLastCommit
+      ? repository.defaultBranchRef?.target.history.edges[0]?.node
+      : undefined
     if (includeLastCommit) {
-      repository.lastCommit = repository.defaultBranchRef.target.history.edges[0].node
       delete repository.defaultBranchRef
     }
-    repository.languages = repository.languages.edges.map((edge) => {
+    const languages = repository.languages.edges.map((edge) => {
       return {
         color: edge.node.color,
         name: edge.node.name,
       }
     })
-    repository.repositoryTopics = repository.repositoryTopics.edges.map(
+    const repositoryTopics = repository.repositoryTopics.edges.map(
       (edge) => edge.node.topic.name
     )
-    return repository
+    return {
+      ...repository,
+      languages,
+      repositoryTopics,
+      ...(lastCommit && { lastCommit }),
+    }
   } catch (err) {
     console.error(err)
     return null

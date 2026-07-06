@@ -12,9 +12,9 @@ export interface MDXLayoutRenderer {
 function getMDXComponent(
   code: string,
   globals: Record<string, unknown> = {}
-): React.ComponentType<any> {
-  let scope = { React, ReactDOM, _jsx_runtime, ...globals }
-  let fn = new Function(...Object.keys(scope), code)
+): React.ComponentType<Record<string, unknown>> {
+  const scope = { React, ReactDOM, _jsx_runtime, ...globals }
+  const fn = new Function(...Object.keys(scope), code)
   return fn(...Object.values(scope)).default
 }
 
@@ -24,11 +24,11 @@ function getMDXComponent(
 export function useMDXComponent(
   code: string,
   globals: Record<string, unknown> = {}
-): React.ComponentType<any> {
+): React.ComponentType<Record<string, unknown>> {
   return React.useMemo(() => getMDXComponent(code, globals), [code, globals])
 }
 
 export function MDXLayoutRenderer({ code, components, ...rest }: MDXLayoutRenderer) {
-  let Mdx = useMDXComponent(code)
+  const Mdx = useMDXComponent(code)
   return <Mdx components={components} {...rest} />
 }

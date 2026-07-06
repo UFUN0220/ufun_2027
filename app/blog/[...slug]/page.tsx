@@ -20,25 +20,26 @@ const LAYOUTS = {
   PostLayout,
   PostBanner,
 }
+type LayoutKey = keyof typeof LAYOUTS
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string[] }>
 }): Promise<Metadata | undefined> {
-  let params = await props.params
-  let slug = decodeURI(params.slug.join('/'))
-  let post = allBlogs.find((p) => p.slug === slug)
-  let authorList = post?.authors || ['default']
-  let authorDetails = authorList.map((author) => {
-    let authorResults = allAuthors.find((p) => p.slug === author)
+  const params = await props.params
+  const slug = decodeURI(params.slug.join('/'))
+  const post = allBlogs.find((p) => p.slug === slug)
+  const authorList = post?.authors || ['default']
+  const authorDetails = authorList.map((author) => {
+    const authorResults = allAuthors.find((p) => p.slug === author)
     return coreContent(authorResults as Author)
   })
   if (!post) {
     return
   }
 
-  let publishedAt = new Date(post.date).toISOString()
-  let modifiedAt = new Date(post.lastmod || post.date).toISOString()
-  let authors = authorDetails.map((author) => author.name)
+  const publishedAt = new Date(post.date).toISOString()
+  const modifiedAt = new Date(post.lastmod || post.date).toISOString()
+  const authors = authorDetails.map((author) => author.name)
   //let imageList = [SITE_METADATA.socialBanner]
   let imageList: string[] = []
 
@@ -46,7 +47,7 @@ export async function generateMetadata(props: {
     imageList = typeof post.images === 'string' ? [post.images] : post.images
   }
   // 添加 (imageList as string[]) 强制断言
-  let ogImages = (imageList as string[]).map((img) => {
+  const ogImages = (imageList as string[]).map((img) => {
     return {
       url: img.includes('http') ? img : SITE_METADATA.siteUrl + img,
     }
@@ -78,37 +79,38 @@ export async function generateMetadata(props: {
   }
 }
 
-export let generateStaticParams = async () => {
+export const generateStaticParams = async () => {
   return allBlogs.map((p) => ({ slug: p.slug.split('/').map((name) => decodeURI(name)) }))
 }
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
   const params = await props.params
-  let slug = decodeURI(params.slug.join('/'))
+  const slug = decodeURI(params.slug.join('/'))
   // Filter out drafts in production
-  let sortedCoreContents = allCoreContent(sortPosts(allBlogs))
-  let postIndex = sortedCoreContents.findIndex((p) => p.slug === slug)
+  const sortedCoreContents = allCoreContent(sortPosts(allBlogs))
+  const postIndex = sortedCoreContents.findIndex((p) => p.slug === slug)
   if (postIndex === -1) {
     return notFound()
   }
 
-  let prev = sortedCoreContents[postIndex + 1]
-  let next = sortedCoreContents[postIndex - 1]
-  let post = allBlogs.find((p) => p.slug === slug) as Blog
-  let authorList = post?.authors || ['default']
-  let authorDetails = authorList.map((author) => {
-    let authorResults = allAuthors.find((p) => p.slug === author)
+  const prev = sortedCoreContents[postIndex + 1]
+  const next = sortedCoreContents[postIndex - 1]
+  const post = allBlogs.find((p) => p.slug === slug) as Blog
+  const authorList = post?.authors || ['default']
+  const authorDetails = authorList.map((author) => {
+    const authorResults = allAuthors.find((p) => p.slug === author)
     return coreContent(authorResults as Author)
   })
-  let mainContent = coreContent(post)
-  let jsonLd = post.structuredData
+  const mainContent = coreContent(post)
+  const jsonLd = post.structuredData
   jsonLd['author'] = authorDetails.map((author) => {
     return {
       '@type': 'Person',
       name: author.name,
     }
   })
-  let Layout = LAYOUTS[post.layout || DEFAULT_LAYOUT]
+  const layoutKey = (post.layout && post.layout in LAYOUTS ? post.layout : DEFAULT_LAYOUT) as LayoutKey
+  const Layout = LAYOUTS[layoutKey]
 
   return (
     <>

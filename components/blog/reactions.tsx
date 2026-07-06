@@ -39,19 +39,19 @@ export function Reactions({
   slug,
   className,
 }: {
-  type: any
+  type: string
   slug: string
   className?: string
 }) {
-  let [stats, isLoading] = useBlogStats(type, slug)
-  let updateReaction = useUpdateBlogStats()
-  let [initialReactions, setInitialReactions] = useState<SelectStats>({
+  const [stats, isLoading] = useBlogStats(type, slug)
+  const updateReaction = useUpdateBlogStats()
+  const [initialReactions, setInitialReactions] = useState<SelectStats>({
     loves: 0,
     applauses: 0,
     bullseyes: 0,
     ideas: 0,
   })
-  let [reactions, setReactions] = useState<SelectStats>({
+  const [reactions, setReactions] = useState<SelectStats>({
     loves: 0,
     applauses: 0,
     bullseyes: 0,
@@ -60,7 +60,7 @@ export function Reactions({
 
   useEffect(() => {
     try {
-      let data = JSON.parse(localStorage.getItem(`${type}/${slug}`) || '{}')
+      const data = JSON.parse(localStorage.getItem(`${type}/${slug}`) || '{}')
       data.loves = data.loves || 0
       data.applauses = data.applauses || 0
       data.ideas = data.ideas || 0
@@ -104,8 +104,8 @@ function Reaction({
   onReact: (v: number) => void
   onSave: () => void
 }) {
-  let [reacting, setReacting] = useState(false)
-  let countRef = useRef<HTMLSpanElement>(null)
+  const [reacting, setReacting] = useState(false)
+  const countRef = useRef<HTMLSpanElement>(null)
   let reactingTimeoutId: ReturnType<typeof setTimeout> | undefined
 
   function handleReact() {
@@ -114,7 +114,7 @@ function Reaction({
         clearTimeout(reactingTimeoutId)
       }
       setReacting(true)
-      let newReactions = reactions >= MAX_REACTIONS ? MAX_REACTIONS : reactions + 1
+      const newReactions = reactions >= MAX_REACTIONS ? MAX_REACTIONS : reactions + 1
       onReact(newReactions)
       if (countRef.current) {
         if (reactions >= MAX_REACTIONS) {

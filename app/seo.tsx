@@ -5,10 +5,17 @@ interface PageSEOProps {
   title: string
   description?: string
   image?: string
-  [key: string]: any
 }
 
-export function genPageMetadata({ title, description, image, ...rest }: PageSEOProps): Metadata {
+type PageMetadataProps = PageSEOProps &
+  Omit<Metadata, 'title' | 'description' | 'openGraph' | 'twitter'>
+
+export function genPageMetadata({
+  title,
+  description,
+  image,
+  ...rest
+}: PageMetadataProps): Metadata {
   return {
     title,
     description: description || SITE_METADATA.description,

@@ -12,8 +12,8 @@ export function Banner({ banner, className }: { banner?: string | null; classNam
   }
 
   try {
-    let [path, author, id] = banner.split('__')
-    let handle = path.split('/').pop() || ''
+    const [path, author, id] = banner.split('__')
+    const handle = path.split('/').pop() || ''
 
     return (
       <div className={clsx('relative', className)}>

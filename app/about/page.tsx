@@ -1,6 +1,6 @@
-import { genPageMetadata } from 'app/seo'
+import { genPageMetadata } from '~/app/seo'
 import UfunReadme from './ufunReadme'
-export let metadata = genPageMetadata({ title: 'README' })
+export const metadata = genPageMetadata({ title: 'README' })
 import IconGroup from './icon_fun'
 
 export default function AboutPage() {

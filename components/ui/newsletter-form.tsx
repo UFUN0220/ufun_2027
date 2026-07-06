@@ -9,15 +9,15 @@ export function NewsletterForm({
   title = 'Subscribe to the newsletter',
   apiUrl = '/api/newsletter',
 }: NewsletterFormProps) {
-  let inputEl = useRef<HTMLInputElement>(null)
-  let [error, setError] = useState(false)
-  let [message, setMessage] = useState('')
-  let [subscribed, setSubscribed] = useState(false)
+  const inputEl = useRef<HTMLInputElement>(null)
+  const [error, setError] = useState(false)
+  const [message, setMessage] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
 
   async function subscribe(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    let res = await fetch(apiUrl, {
+    const res = await fetch(apiUrl, {
       body: JSON.stringify({
         email: inputEl.current!.value,
       }),
@@ -27,7 +27,7 @@ export function NewsletterForm({
       method: 'POST',
     })
 
-    let { error } = await res.json()
+    const { error } = await res.json()
     if (error) {
       setError(true)
       setMessage('Your e-mail address is invalid or you are already subscribed!')

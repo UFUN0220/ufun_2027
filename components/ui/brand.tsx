@@ -45,7 +45,7 @@ import Html from '~/icons/html5.svg'
 import Postcss from '~/icons/postcss.svg'
 import Commitlint from '~/icons/commitlint.svg'
 
-export let BrandsMap: Record<
+export const BrandsMap: Record<
   string,
   {
     Icon: React.FC<React.SVGProps<SVGSVGElement>>
@@ -255,8 +255,8 @@ export function Brand(props: {
   className?: string
   iconClassName?: string
 }) {
-  let { name, as = 'link', className, iconClassName } = props
-  let { Icon, url } = BrandsMap[name] || {}
+  const { name, as = 'link', className, iconClassName } = props
+  const { Icon, url } = BrandsMap[name] || {}
 
   if (!Icon) return <span className="hidden">Missing brand icon for {name}</span>
 

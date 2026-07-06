@@ -27,7 +27,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '1 / 1 / 3 / 5',
             '--sm': '1 / 1 / 3 / 5',
-          } as any
+          } as React.CSSProperties
         }
       >
         <MBTI />
@@ -40,7 +40,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '1 / 5 / 3 / 7',
             '--sm': '7 / 1 / 9 / 3',
-          } as any
+          } as React.CSSProperties
         }
       >
         <LocationTimeWeather />
@@ -53,7 +53,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '1 / 7 / 5 / 9',
             '--sm': '7 / 3 / 11 / 5',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col justify-center gap-2 rounded-[1.25rem] border p-4 shadow hover:shadow-md dark:border-gray-600">
@@ -94,7 +94,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '4 / 1 / 8 / 3',
             '--sm': '9 / 1 / 13 / 3',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col justify-center rounded-[1.25rem] border bg-cover bg-center shadow hover:shadow-md dark:border-gray-600">
@@ -118,7 +118,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '3 / 3 / 7 / 7',
             '--sm': '3 / 1 / 7 / 5',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col justify-center rounded-[1.25rem] border bg-cover bg-center shadow hover:shadow-md dark:border-gray-600">
@@ -158,7 +158,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '3 / 1 / 4 / 3',
             '--sm': '17 / 1 / 18 / 3',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col items-center justify-center gap-2 rounded-[1.25rem] border p-4 shadow hover:shadow-md dark:border-gray-600">
@@ -174,7 +174,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '8 / 1 / 9 / 3',
             '--sm': '18 / 1 / 19 / 3',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col items-center justify-center gap-2 rounded-[1.25rem] border p-4 shadow hover:shadow-md dark:border-gray-600">
@@ -194,7 +194,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '7 / 3 / 9 / 7',
             '--sm': '13 / 1 / 15 / 5',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col items-center justify-center gap-2 rounded-[1.25rem] border p-4 shadow hover:shadow-md dark:border-gray-600">
@@ -234,7 +234,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '9 / 1 / 11 / 3',
             '--sm': '19 / 1 / 21 / 3',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col items-center justify-center gap-2 rounded-[1.25rem] border p-4 shadow hover:shadow-md dark:border-gray-600">
@@ -269,7 +269,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '9 / 3 / 11 / 7',
             '--sm': '15 / 1 / 17 / 5',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col items-center justify-center gap-2 rounded-[1.25rem] border p-4 shadow hover:shadow-md dark:border-gray-600">
@@ -334,7 +334,7 @@ const Bentotest: React.FC = () => {
           {
             '--lg': '9 / 7 / 11 / 9',
             '--sm': '19 / 3 / 21 / 5',
-          } as any
+          } as React.CSSProperties
         }
       >
         <div className="relative flex h-full flex-col items-center justify-center gap-2 rounded-[1.25rem] border p-4 shadow hover:shadow-md dark:border-gray-600">

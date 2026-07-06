@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { Facebook, Github, Linkedin, Mail, Youtube } from 'lucide-react'
+import { FileVideo, GitBranch, Mail, Network, Users } from 'lucide-react'
 import { SITE_METADATA } from '~/data/site-metadata'
 import X from '~/icons/x.svg'
 
@@ -14,7 +14,7 @@ export function SocialAccounts({ className }: { className?: string }) {
         rel="noopener noreferrer"
       >
         <span className="sr-only">Github</span>
-        <Github strokeWidth={1.5} />
+        <GitBranch strokeWidth={1.5} />
       </a>
       {/* <a
         href={SITE_METADATA.x}
@@ -34,7 +34,7 @@ export function SocialAccounts({ className }: { className?: string }) {
         rel="noopener noreferrer"
       >
         <span className="sr-only">Linkedin</span>
-        <Linkedin strokeWidth={1.5} />
+        <Network strokeWidth={1.5} />
       </a>
       <a
         href={`mailto:${SITE_METADATA.email}`}
@@ -54,7 +54,7 @@ export function SocialAccounts({ className }: { className?: string }) {
         rel="noopener noreferrer"
       >
         <span className="sr-only">Facebook</span>
-        <Facebook strokeWidth={1.5} />
+        <Users strokeWidth={1.5} />
       </a> */}
       {/* <a
         href={SITE_METADATA.youtube}
@@ -64,7 +64,7 @@ export function SocialAccounts({ className }: { className?: string }) {
         rel="noopener noreferrer"
       >
         <span className="sr-only">Youtube</span>
-        <Youtube strokeWidth={1.5} />
+        <FileVideo strokeWidth={1.5} />
       </a> */}
     </div>
   )

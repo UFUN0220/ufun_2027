@@ -3,8 +3,8 @@ import NextLink from 'next/link'
 import type { AnchorHTMLAttributes } from 'react'
 
 export function Link({ href, ...rest }: LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>) {
-  let isInternalLink = href && href.startsWith('/')
-  let isAnchorLink = href && href.startsWith('#')
+  const isInternalLink = href && href.startsWith('/')
+  const isAnchorLink = href && href.startsWith('#')
 
   if (isInternalLink) {
     return <NextLink className="break-words" href={href} {...rest} />

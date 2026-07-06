@@ -53,7 +53,7 @@ export function KBarModal({ actions, isLoading }: { actions: Action[]; isLoading
 }
 
 function RenderResults() {
-  let { results } = useMatches()
+  const { results } = useMatches()
 
   if (results.length) {
     return (

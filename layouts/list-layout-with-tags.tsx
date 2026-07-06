@@ -19,9 +19,9 @@ interface ListLayoutProps {
 }
 
 export function ListLayoutWithTags({ title, description, posts, snippets }: ListLayoutProps) {
-  let hasBlogs = posts.length > 0
-  let hasSnippets = snippets.length > 0
-  let [view, setView] = useState<'blogs' | 'snippets'>(hasBlogs ? 'blogs' : 'snippets')
+  const hasBlogs = posts.length > 0
+  const hasSnippets = snippets.length > 0
+  const [view, setView] = useState<'blogs' | 'snippets'>(hasBlogs ? 'blogs' : 'snippets')
 
   return (
     <Container className="pt-4 lg:pt-12">
@@ -84,9 +84,9 @@ export function ListLayoutWithTags({ title, description, posts, snippets }: List
 }
 
 function TagsList() {
-  let tagCounts = tagData as Record<string, number>
-  let tagKeys = Object.keys(tagCounts)
-  let sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
+  const tagCounts = tagData as Record<string, number>
+  const tagKeys = Object.keys(tagCounts)
+  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
 
   return (
     <div className="hidden max-h-screen w-[300px] shrink-0 py-5 md:flex md:py-10">

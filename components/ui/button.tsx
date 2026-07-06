@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import type { ElementType, ReactNode } from 'react'
 
 export function Button({
   children,
@@ -6,10 +7,10 @@ export function Button({
   className,
   ...rest
 }: {
-  children: React.ReactNode
-  as?: React.ElementType
+  children: ReactNode
+  as?: ElementType
   className?: string
-  [key: string]: any
+  [key: string]: unknown
 }) {
   return (
     <Component

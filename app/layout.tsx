@@ -1,5 +1,5 @@
-import 'css/tailwind.css'
-import 'css/twemoji.css'
+import '../css/tailwind.css'
+import '../css/twemoji.css'
 import 'react-medium-image-zoom/dist/styles.css'
 import 'remark-github-blockquote-alert/alert.css'
 import { Analytics } from '@vercel/analytics/react'
@@ -52,7 +52,7 @@ const FONT_JETBRAINS_MONO = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-export let metadata: Metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(SITE_METADATA.siteUrl),
   title: {
     default: SITE_METADATA.title,
@@ -95,7 +95,7 @@ export let metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  let basePath = process.env.BASE_PATH || ''
+  const basePath = process.env.BASE_PATH || ''
 
   return (
     <html
@@ -140,15 +140,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           'antialiased, font-sans',
           'relative min-h-screen pl-[calc(100vw-100%)]',
           'flex flex-col',
-          'bg-white text-neutral-900',
-          'dark:bg-dark dark:text-gray-100',
+          'bg-[#f7edf5] bg-[radial-gradient(circle_at_16%_84%,rgba(255,45,85,0.3),transparent_34%),radial-gradient(circle_at_78%_82%,rgba(255,204,0,0.34),transparent_31%),radial-gradient(circle_at_56%_24%,rgba(175,82,222,0.24),transparent_35%),radial-gradient(circle_at_26%_18%,rgba(90,200,250,0.22),transparent_32%)] text-neutral-900',
+          'bg-fixed dark:bg-[#f7edf5] dark:text-gray-100',
         ])}
       >
         <ThemeProviders>
           <UmamiAnalytics websiteId={SITE_METADATA.analytics.umamiAnalytics.websiteId} />
           <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
             <Header />
-            <main className="mb-auto grid grow place-items-center">{children}</main>
+            <main className="mb-auto grow">{children}</main>
           </KBarSearchProvider>
           <Footer />
         </ThemeProviders>

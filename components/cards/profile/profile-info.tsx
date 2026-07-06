@@ -1,11 +1,11 @@
 import { SITE_METADATA } from '~/data/site-metadata'
-import { BriefcaseBusiness, Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import { BriefcaseBusiness, GitBranch, Mail, MapPin } from 'lucide-react'
 import { Fragment } from 'react'
 import XIcon from '~/icons/x.svg'
 import { Twemoji } from '~/components/ui/twemoji'
 
 function getAccountHandle(url = '') {
-  let lastPart = url.split('/').pop()
+  const lastPart = url.split('/').pop()
   if (lastPart) {
     return lastPart
   }
@@ -17,7 +17,7 @@ const SOCIALS = [
     platform: 'github',
     handle: getAccountHandle(SITE_METADATA.github),
     href: SITE_METADATA.github,
-    Icon: () => <Github size={20} strokeWidth={1.5} />,
+    Icon: () => <GitBranch size={20} strokeWidth={1.5} />,
     umamiEvent: 'profile-card-github',
   },
 ]

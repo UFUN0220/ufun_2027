@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { Github } from 'lucide-react'
+import { GitBranch } from 'lucide-react'
 import { Fragment } from 'react'
 import type { BrandsMap } from '~/components/ui/brand'
 import { Brand } from '~/components/ui/brand'
@@ -12,10 +12,10 @@ import type { PROJECTS } from '~/data/projects'
 import type { GithubRepository } from '~/types/data'
 
 export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
-  let { title, description, imgSrc, url, repo, builtWith, links } = project
-  let repository = repo as GithubRepository
-  let href = repository?.url || url
-  let lang = repository?.languages?.[0]
+  const { title, description, imgSrc, url, repo, builtWith, links } = project
+  const repository = repo as GithubRepository
+  const href = repository?.url || url
+  const lang = repository?.languages?.[0]
 
   return (
     <GradientBorder
@@ -52,7 +52,7 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
             </div>
             <div className="flex items-center gap-2">
               <div className="flex items-center space-x-1.5">
-                <Github size={16} strokeWidth={1.5} />
+                <GitBranch size={16} strokeWidth={1.5} />
                 <span className="font-medium">{repository?.stargazerCount}</span>
               </div>
             </div>

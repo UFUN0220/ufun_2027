@@ -208,7 +208,7 @@ export function CareerTimeline() {
 }
 
 function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: boolean }) {
-  let { org, title, icon, url, logo, start, end, event, details: Details } = exp
+  const { org, title, icon, url, logo, start, end, event, details: Details } = exp
   return (
     <div
       className={clsx(

@@ -17,9 +17,9 @@ export function ProjectCard({
   project: (typeof PROJECTS)[0]
   reversed?: boolean
 }) {
-  let { title, description, imgSrc, url, repo, builtWith } = project
-  let repository = repo as GithubRepository
-  let href = repository?.url || url
+  const { title, description, imgSrc, url, repo, builtWith } = project
+  const repository = repo as GithubRepository
+  const href = repository?.url || url
 
   return (
     <RadiantCard

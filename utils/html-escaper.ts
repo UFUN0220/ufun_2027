@@ -1,6 +1,6 @@
-let { replace } = ''
-let ca = /[&<>'"]/g
-let esca = {
+const { replace } = ''
+const ca = /[&<>'"]/g
+const esca = {
   '&': '&amp;',
   '<': '&lt;',
   '>': '&gt;',
@@ -8,8 +8,8 @@ let esca = {
   '"': '&quot;',
 }
 
-function pe(m: keyof typeof esca) {
-  return esca[m]
+function pe(m: string) {
+  return esca[m as keyof typeof esca]
 }
 
 /**

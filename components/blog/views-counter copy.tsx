@@ -8,12 +8,12 @@ export function ViewsCounter({
   slug,
   className,
 }: {
-  type: any
+  type: string
   slug: string
   className?: string
 }) {
-  let [stats, isLoading] = useBlogStats(type, slug)
-  let updateView = useUpdateBlogStats()
+  const [stats, isLoading] = useBlogStats(type, slug)
+  const updateView = useUpdateBlogStats()
 
   useEffect(() => {
     if (!isLoading && stats) {

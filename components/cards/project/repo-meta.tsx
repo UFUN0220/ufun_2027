@@ -1,8 +1,8 @@
-import { ExternalLink, GitFork, Github, Star } from 'lucide-react'
+import { ExternalLink, GitBranch, GitFork, Star } from 'lucide-react'
 import type { GithubRepository } from '~/types/data'
 
 export function RepoMeta({ repo }: { repo: GithubRepository }) {
-  let mainLanguage = repo.languages[0]
+  const mainLanguage = repo.languages[0]
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3 md:gap-4">
@@ -44,7 +44,7 @@ export function RepoMeta({ repo }: { repo: GithubRepository }) {
           className="flex items-center space-x-1"
           data-umami-event="project-repo"
         >
-          <Github size={20} strokeWidth={1.5} />
+          <GitBranch size={20} strokeWidth={1.5} />
         </a>
       </div>
     </div>

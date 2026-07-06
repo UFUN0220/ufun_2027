@@ -5,7 +5,7 @@ import Parser from 'rss-parser'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { GoodreadsBook, ImdbMovie, OmdbMovie } from '~/types/data'
 
-let parser = new Parser<{ [key: string]: any }, GoodreadsBook>({
+const parser = new Parser<Record<string, unknown>, GoodreadsBook>({
   customFields: {
     item: [
       'guid',
@@ -33,11 +33,15 @@ let parser = new Parser<{ [key: string]: any }, GoodreadsBook>({
   },
 })
 
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : String(error)
+}
+
 export async function fetchGoodreadsBooks() {
   if (SITE_METADATA.goodreadsFeedUrl) {
     try {
-      let data = await parser.parseURL(SITE_METADATA.goodreadsFeedUrl)
-      for (let book of data.items) {
+      const data = await parser.parseURL(SITE_METADATA.goodreadsFeedUrl)
+      for (const book of data.items) {
         book.book_description = book.book_description
           .replace(/<[^>]*(>|$)/g, '')
           .replace(/\s\s+/g, ' ')
@@ -48,7 +52,7 @@ export async function fetchGoodreadsBooks() {
       writeFileSync(`./json/books.json`, JSON.stringify(data.items))
       console.log('📚 Books seeded.')
     } catch (error) {
-      console.error(`Error fetching the Goodreads RSS feed: ${error.message}`)
+      console.error(`Error fetching the Goodreads RSS feed: ${getErrorMessage(error)}`)
     }
   } else {
     console.log('📚 No Goodreads RSS feed found.')
@@ -69,7 +73,7 @@ async function fetchImdbMovies() {
     return
   }
   try {
-    let imdbMovies: ImdbMovie[] = []
+    const imdbMovies: ImdbMovie[] = []
     fs.createReadStream(IMDB_CSV_FILE_PATH)
       .pipe(
         csv({
@@ -88,10 +92,10 @@ async function fetchImdbMovies() {
         console.error(`Error parsing IMDB CSV file: ${error.message}`)
       })
       .on('end', async () => {
-        let movies: ImdbMovie[] = []
+        const movies: ImdbMovie[] = []
         await Promise.all(
           imdbMovies.map(async (mv) => {
-            let res = await fetch(
+            const res = await fetch(
               `https://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${mv.const}&plot=full`,
               {
                 method: 'GET',
@@ -100,7 +104,7 @@ async function fetchImdbMovies() {
                 },
               }
             )
-            let omdbMovie: OmdbMovie = await res.json()
+            const omdbMovie: OmdbMovie = await res.json()
             movies.push({
               ...mv,
               total_seasons: omdbMovie.totalSeasons,
@@ -123,7 +127,7 @@ async function fetchImdbMovies() {
         console.log('🎬 IMDB movies seeded.')
       })
   } catch (error) {
-    console.error(`Error parsing IMDB CSV file: ${error.message}`)
+    console.error(`Error parsing IMDB CSV file: ${getErrorMessage(error)}`)
   }
 }
 

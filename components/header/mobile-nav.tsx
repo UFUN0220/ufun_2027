@@ -12,16 +12,16 @@ import { SITE_METADATA } from '~/data/site-metadata'
 import { Logo } from './logo'
 
 export function MobileNav() {
-  let [navShow, setNavShow] = useState(false)
-  let navRef = useRef(null)
+  const [navShow, setNavShow] = useState(false)
+  const navRef = useRef<HTMLDivElement | null>(null)
 
-  let onToggleNav = () => {
+  const onToggleNav = () => {
     setNavShow((status) => {
       if (status) {
-        enableBodyScroll(navRef.current)
+        if (navRef.current) enableBodyScroll(navRef.current)
       } else {
         // Prevent scrolling
-        disableBodyScroll(navRef.current)
+        if (navRef.current) disableBodyScroll(navRef.current)
       }
       return !status
     })

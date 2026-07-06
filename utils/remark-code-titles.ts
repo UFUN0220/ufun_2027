@@ -8,7 +8,7 @@ import { visit } from 'unist-util-visit'
 export function remarkCodeTitles() {
   return (tree: Parent & { lang?: string }) =>
     visit(tree, 'code', (node: Parent & { lang?: string }, index: number, parent: Parent) => {
-      let nodeLang = node.lang || ''
+      const nodeLang = node.lang || ''
       let language = ''
       let title = ''
 
@@ -19,16 +19,17 @@ export function remarkCodeTitles() {
 
       if (!title) return
 
-      parent.children.splice(index, 0, {
+      const titleNode = {
         type: 'mdxJsxFlowElement',
-        // @ts-ignore
         name: 'CodeTitle',
         attributes: [
           { type: 'mdxJsxAttribute', name: 'lang', value: language },
           { type: 'mdxJsxAttribute', name: 'title', value: title },
         ],
         data: { _xdmExplicitJsx: true },
-      })
+      } as unknown as Parent['children'][number]
+
+      parent.children.splice(index, 0, titleNode)
       node.lang = language
     })
 }

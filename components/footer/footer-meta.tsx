@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock, Github, Map, Star } from 'lucide-react'
+import { Clock, GitBranch, Map, Star } from 'lucide-react'
 import useSWR from 'swr'
 import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
@@ -9,14 +9,14 @@ import type { GithubRepository } from '~/types/data'
 import { fetcher } from '~/utils/misc'
 
 export function FooterMeta() {
-  let siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
-  let repoName = siteRepo.split('/')[1]
-  let { data: repo } = useSWR<GithubRepository>(`/api/github?repo=${siteRepo}`, fetcher)
+  const siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
+  const repoName = siteRepo.split('/')[1]
+  const { data: repo } = useSWR<GithubRepository>(`/api/github?repo=${siteRepo}`, fetcher)
 
   return (
     <div className="space-y-2 py-1.5 text-gray-800 dark:text-gray-200">
       <div className="flex items-center gap-1 font-medium">
-        <Github className="h-5 w-5" />
+        <GitBranch className="h-5 w-5" />
         <Link href={SITE_METADATA.siteRepo} className="ml-1">
           {repoName}
         </Link>

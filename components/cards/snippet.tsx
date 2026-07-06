@@ -9,7 +9,7 @@ import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import type { CoreContent } from '~/types/data'
 
 export function SnippetCard({ snippet }: { snippet: CoreContent<Snippet> }) {
-  let { icon, heading, summary, title, path } = snippet
+  const { icon, heading, summary, title, path } = snippet
   return (
     <GradientBorder className="rounded-2xl">
       <Link

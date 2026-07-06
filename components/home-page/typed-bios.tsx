@@ -16,8 +16,8 @@ function createTypedInstance(el: HTMLElement) {
 }
 
 export function TypedBios() {
-  let el = useRef(null)
-  let typed = useRef<Typed | null>(null)
+  const el = useRef(null)
+  const typed = useRef<Typed | null>(null)
 
   useEffect(() => {
     if (el.current) {

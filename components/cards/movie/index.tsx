@@ -11,13 +11,13 @@ function getLargePoster(poster: string, size = 1000) {
 }
 
 export function MovieCard({ movie }: { movie: ImdbMovie }) {
-  let { url, title, title_type, poster, year, runtime, total_seasons } = movie
+  const { url, title, title_type, poster, year, runtime, total_seasons } = movie
 
   function handleZoom(e: React.MouseEvent<HTMLDivElement>) {
-    let rmiz = e.currentTarget.querySelector('[data-rmiz]')
-    let modalId = rmiz?.getAttribute('aria-owns')?.split('-').pop()
+    const rmiz = e.currentTarget.querySelector('[data-rmiz]')
+    const modalId = rmiz?.getAttribute('aria-owns')?.split('-').pop()
     if (modalId) {
-      let zoomedPoster = document.getElementById(`rmiz-modal-img-${modalId}`)
+      const zoomedPoster = document.getElementById(`rmiz-modal-img-${modalId}`)
       if (zoomedPoster) {
         zoomedPoster.removeAttribute('srcset')
       }
@@ -72,8 +72,8 @@ export function MovieCard({ movie }: { movie: ImdbMovie }) {
 }
 
 function formatRuntime(runtime: string) {
-  let _mins = Number(runtime)
-  let hours = Math.floor(_mins / 60)
-  let mins = _mins % 60
+  const _mins = Number(runtime)
+  const hours = Math.floor(_mins / 60)
+  const mins = _mins % 60
   return `${hours}h ${mins < 10 ? '0' : ''}${mins}m`
 }

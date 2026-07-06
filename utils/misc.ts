@@ -29,13 +29,13 @@ export function getTimeAgo(time: string | number | Date, now = Date.now()): stri
     time = new Date(time).getTime()
   }
 
-  let secs = (now - time) / 1000
-  let mins = is(60, secs)
-  let hours = is(60, mins)
-  let days = is(24, hours)
-  let weeks = is(7, days)
-  let months = is(30, days)
-  let years = is(12, months)
+  const secs = (now - time) / 1000
+  const mins = is(60, secs)
+  const hours = is(60, mins)
+  const days = is(24, hours)
+  const weeks = is(7, days)
+  const months = is(30, days)
+  const years = is(12, months)
 
   let amt = years
   let cycle = 'year'
@@ -66,7 +66,7 @@ export function getTimeAgo(time: string | number | Date, now = Date.now()): stri
     cycle = 'second'
   }
 
-  let v = Math.floor(amt)
+  const v = Math.floor(amt)
 
   return `${v === 1 ? (amt === hours ? 'an' : 'a') : v} ${cycle}${v > 1 ? 's' : ''} ago`
 }
